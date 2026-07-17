@@ -15,6 +15,7 @@ from visualping_consts import *
 import requests
 import json
 from bs4 import BeautifulSoup
+from urllib.parse import quote
 
 
 class RetVal(tuple):
@@ -202,7 +203,7 @@ class VisualpingConnector(BaseConnector):
             r = request_func(
                 url,
                 auth=self._auth,  # basic authentication
-                verify=config.get('verify_server_cert', False),
+                verify=config.get('verify_server_cert', True),
                 **kwargs
             )
         except requests.exceptions.InvalidSchema:
@@ -283,11 +284,11 @@ class VisualpingConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        id = param['id']
+        job_id = quote(str(param['id']), safe='')
 
         # make rest call
         # for some reason the /api/job/lastresult returns a ContentType: text/html json response
-        ret_val, response = self._make_rest_call('/api/job/lastresult/{0}'.format(id), action_result, params=None, headers=None)
+        ret_val, response = self._make_rest_call('/api/job/lastresult/{0}'.format(job_id), action_result, params=None, headers=None)
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
