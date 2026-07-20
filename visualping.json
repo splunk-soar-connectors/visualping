@@ -17,7 +17,7 @@
     ],
     "license": "Copyright (c) 2021-2026 Splunk Inc.",
     "app_version": "1.0.0",
-    "utctime_updated": "2020-12-22T17:55:40.648399Z",
+    "utctime_updated": "2026-07-20T18:26:07.678549Z",
     "package_name": "phantom_visualping",
     "main_module": "visualping_connector.py",
     "min_phantom_version": "4.9.39220",
